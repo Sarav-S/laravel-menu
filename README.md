@@ -19,6 +19,7 @@ __For Laravel 4.x, check [version 1.5.0](https://github.com/lavary/laravel-menu/
 	- [Controller Actions](#controller-actions)
 	- [HTTPS](#https)
 * [Sub-items](#sub-items)
+* [Update Existing Menu](#update-existing-menu)
 * [Set Item's ID Manualy](#)
 * [Set Item's Nicknames Manualy](#)
 * [Referring to Items](#referring-to-items)
@@ -349,6 +350,29 @@ It is possible to add sub items directly using `parent` attribute:
 	//...
 ?>
 ```  
+
+## Update Existing Menu
+
+You can easily update already existing menu by using its registered menu name. For example, consider you have menu registered under the name of "MyNavBar", you can add additional menus items to it by using `get()` method
+
+```php
+<?php 
+   	// ...
+
+	$menu = app('menu');
+	$menu->make('AdminNavBar', function($menu){
+        	$menu->add('Service', ['route' => 'admin.services.index', 'class' => 'treeview'])
+        		->prepend('<i class="fa fa-list-ul"></i><span>')
+            		->append('</span>');
+    	});
+
+	// ...
+
+	$navbar = $menu->get('AdminNavBar');
+	$navbar->add('Category', ['route' => 'admin.categories.index', 'class' => 'treeview'])
+            	->prepend('<i class="fa fa-list-ul"></i><span>')
+            	->append('</span>');
+```
 
 ## Set Item's ID Manually
 
